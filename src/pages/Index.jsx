@@ -3,6 +3,8 @@ import { Box, Heading, Textarea, Button, useToast, VStack, HStack, Text, Input }
 import { FaDownload } from "react-icons/fa";
 import { readAsText } from "../utils/fileUtils";
 
+
+
 const API_KEY = "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";
 
 const Index = () => {
