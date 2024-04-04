@@ -80,7 +80,7 @@ namespace ShapeScript {
     }
 
     string GetPartName() {
-      return ShapeName + " " + to_string(SideLength) + "\" X " + to_string(SideLength) + "\"";
+      return ShapeName + " " + to_string(SideLength) + "\\\" X \\\"" + to_string(SideLength) + "\"";
     }
 
     string GetCategory() {
@@ -88,7 +88,7 @@ namespace ShapeScript {
     }
 
     string GetSubCategory() {
-      return to_string(SideLength) + "\" X " + to_string(SideLength) + "\"";
+      return to_string(SideLength) + "\\\" X \\\"" + to_string(SideLength) + "\"";
     }
 
     string GetProductCode() {
