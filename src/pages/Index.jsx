@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Box, Heading, Textarea, Button, useToast, VStack, HStack, Text, Input } from "@chakra-ui/react";
 import { FaDownload } from "react-icons/fa";
+import { readAsText } from "../utils/fileUtils";
+
+const API_KEY = "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";
 
 const Index = () => {
   const [shape, setShape] = useState("");
@@ -8,8 +11,47 @@ const Index = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const toast = useToast();
 
-  const generateCode = () => {
-    if (shape.trim() === "") {
+  const fetchGeneratedCode = async (shape, pdfFileContent) => {
+    try {
+      const requestBody = {
+        apiKey: API_KEY,
+        model: "codellama-70b-instruct",
+        parameters: {},
+        data: {
+          shape,
+          pdfContent: pdfFileContent || "",
+        },
+      };
+
+      const response = await fetch("https://api.perplexity.ai/v1/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error("API call failed: " + response.status);
+      }
+
+      const result = await response.json();
+
+      return result.code;
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return "";
+    }
+  };
+
+  const generateCode = async () => {
+    if (!shape.trim()) {
       toast({
         title: "Error",
         description: "Please enter a shape.",
@@ -21,8 +63,6 @@ const Index = () => {
     }
 
     console.log("PDF File:", pdfFile);
-
-    
 
     let cppCode = "";
 
