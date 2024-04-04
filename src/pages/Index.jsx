@@ -3,8 +3,6 @@ import { Box, Heading, Textarea, Button, useToast, VStack, HStack, Text, Input }
 import { FaDownload } from "react-icons/fa";
 import { readAsText } from "../utils/fileUtils";
 
-
-
 const API_KEY = "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";
 
 const Index = () => {
@@ -134,7 +132,7 @@ int main() {
     const element = document.createElement("a");
     const file = new Blob([code], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
-    element.download = "shape.txt";
+    element.download = "shape_code.cpp";
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -155,7 +153,7 @@ int main() {
         </Button>
         {code && (
           <>
-            <Text>Generated C++ Code:</Text>
+            <Text>Generated C++ Code (ensure you compile this with a C++ compiler):</Text>
             <Textarea value={code} readOnly />
             <HStack justify="flex-end">
               <Button leftIcon={<FaDownload />} colorScheme="green" onClick={downloadCode}>
