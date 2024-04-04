@@ -19,13 +19,55 @@ const Index = () => {
       return;
     }
 
-    const cppCode = `#include <iostream>
+    let cppCode = "";
+
+    if (shape.toLowerCase() === "square") {
+      cppCode = `#include <iostream>
+using namespace std;
+
+namespace ShapeScript {
+  class ShapeSquare {
+  public:
+    double SideLength = 10.0;
+
+    ShapeSquare() {
+      ShapeName = "Square";
+    }
+
+    string GetPartName() {
+      return ShapeName + " " + to_string(SideLength) + "\" X " + to_string(SideLength) + "\"";
+    }
+
+    string GetCategory() {
+      return "Square";
+    }
+
+    string GetSubCategory() {
+      return to_string(SideLength) + "\" X " + to_string(SideLength) + "\"";
+    }
+
+    string GetProductCode() {
+      return "";
+    }
+
+    void RunScript() {
+     
+     
+    }
+
+  private:
+    string ShapeName;
+  };
+}`;
+    } else {
+      cppCode = `#include <iostream>
 using namespace std;
 
 int main() {
   cout << "${shape}" << endl;
   return 0;
 }`;
+    }
 
     setCode(cppCode);
   };
